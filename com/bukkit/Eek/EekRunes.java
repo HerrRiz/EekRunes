@@ -34,6 +34,8 @@ public class EekRunes extends JavaPlugin {
     private OracleRune oracleRune;
     private DoorRune doorRune;
     private PowerToolRune powerToolRune;
+    private FreezerRune freezerRune;
+    private ChronoTriggerRune chronoTriggerRune;
     private HashMap<Integer,Integer> tiers;
     private HashMap<String,Boolean> options;
 
@@ -50,7 +52,9 @@ public class EekRunes extends JavaPlugin {
         oracleRune = new OracleRune(this);
         doorRune = new DoorRune(this);
         powerToolRune = new PowerToolRune(this);
-        Rune[] runes = {warpRune,teleportRune,compassRune,oracleRune,doorRune,powerToolRune};
+        freezerRune = new FreezerRune(this);
+        chronoTriggerRune = new ChronoTriggerRune(this);
+        Rune[] runes = {warpRune,teleportRune,compassRune,oracleRune,doorRune,powerToolRune,freezerRune,chronoTriggerRune};
         runeRunner = new RuneRunner(runes);
         tool = new HashSet<String>();
         loadState();
@@ -140,6 +144,13 @@ public class EekRunes extends JavaPlugin {
 
         if (options.get("powertool")!=Boolean.TRUE)
             options.put("powertool", Boolean.FALSE);
+
+        if (options.get("freezer")!=Boolean.TRUE)
+            options.put("freezer", Boolean.FALSE);
+
+        if (options.get("chrono")!=Boolean.TRUE)
+            options.put("chrono", Boolean.FALSE);
+        
         saveState();
         doorRune.setEnabled(options.get("passages")==Boolean.TRUE);
         teleportRune.setEnabled(options.get("teleports")==Boolean.TRUE);
@@ -147,6 +158,8 @@ public class EekRunes extends JavaPlugin {
         compassRune.setEnabled(options.get("compass")==Boolean.TRUE);
         oracleRune.setEnabled(options.get("oracle")==Boolean.TRUE);
         powerToolRune.setEnabled(options.get("powertool")==Boolean.TRUE);
+        freezerRune.setEnabled(options.get("freezer")==Boolean.TRUE);
+        chronoTriggerRune.setEnabled(options.get("chrono")==Boolean.TRUE);
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, runeRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_DAMAGED, runeRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.REDSTONE_CHANGE, runeRunner, Priority.Normal, this);
