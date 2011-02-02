@@ -23,10 +23,8 @@ public class FreezerRune extends Rune
     public boolean runRuneRightClick(BlockRightClickEvent event)
     {
         Block block = event.getBlock();
-        System.out.println("Checking");
         if (canFreeze(block))
         {
-            System.out.println("Freezing...");
             for(int i=-2;i<3;i++)
             {
                 for(int j=-2;j<3;j++)
@@ -50,7 +48,6 @@ public class FreezerRune extends Rune
             }
             return true;
         }
-        System.out.println("FAILED");
         return false;
     }
     private boolean canFreeze(Block block)
@@ -62,22 +59,18 @@ public class FreezerRune extends Rune
                 Block block2 = block.getRelative(i, 0, j);
                 if (((i+2)%4==0) && ((j+2)%4==0))
                 {
-                    System.out.println("Checking redstone " + i + " " + j);
                     if (block2.getType()!=Material.REDSTONE_TORCH_ON) return false;
                 }
                 else if(((i + 2) % 4 == 0) || ((j + 2) % 4 == 0))
                 {
-                    System.out.println("Checking glass " + i + " " + j);
                     if (block2.getType()!=Material.GLASS) return false;
                 }
                 else if (i==0&&j==0)
                 {
-                    System.out.println("Checking glass " + i + " " + j);
                     if (block2.getType()!=Material.GOLD_ORE) return false;
                 }
                 else 
                 {
-                    System.out.println("Checking water " + i + " " + j);
                     if (block2.getType() != Material.STATIONARY_WATER) return false;
                 }
             }

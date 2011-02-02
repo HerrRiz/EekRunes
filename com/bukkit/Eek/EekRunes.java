@@ -158,6 +158,7 @@ public class EekRunes extends JavaPlugin {
         compassRune.setEnabled(options.get("compass")==Boolean.TRUE);
         oracleRune.setEnabled(options.get("oracle")==Boolean.TRUE);
         powerToolRune.setEnabled(options.get("powertool")==Boolean.TRUE);
+        System.out.println("freezer enabled? " + options.get("freezer"));
         freezerRune.setEnabled(options.get("freezer")==Boolean.TRUE);
         chronoTriggerRune.setEnabled(options.get("chrono")==Boolean.TRUE);
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, runeRunner, Priority.Normal, this);

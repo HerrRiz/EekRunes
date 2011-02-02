@@ -24,6 +24,7 @@ public abstract class Rune
 
     public boolean runRuneRightClick(BlockRightClickEvent event)
     {
+        System.out.println("Method not implemented by rune, returning false");
         return false;
     }
 
