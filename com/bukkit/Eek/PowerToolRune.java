@@ -12,6 +12,7 @@ import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import java.util.HashMap;
+import org.bukkit.inventory.ItemStack;
 /**
  *
  * @author UserXP
@@ -57,35 +58,24 @@ public class PowerToolRune extends Rune
                 powered.put(id, powered.get(id)-1);
                 Block block = event.getBlock();
                 Material mat = block.getType();
-                if (block.getFace(BlockFace.UP).getType()==mat)
+                for(int i=-1;i<2;i++)
                 {
-                    block.getFace(BlockFace.UP).setType(Material.AIR);
-                    block.getWorld().dropItemNaturally(block.getFace(BlockFace.UP).getLocation(), block.getState().getData().toItemStack());
-                }
-                if (block.getFace(BlockFace.DOWN).getType()==mat)
-                {
-                    block.getFace(BlockFace.DOWN).setType(Material.AIR);
-                    block.getWorld().dropItemNaturally(block.getFace(BlockFace.DOWN).getLocation(), block.getState().getData().toItemStack());
-                }
-                if (block.getFace(BlockFace.NORTH).getType()==mat)
-                {
-                    block.getFace(BlockFace.NORTH).setType(Material.AIR);
-                    block.getWorld().dropItemNaturally(block.getFace(BlockFace.NORTH).getLocation(), block.getState().getData().toItemStack());
-                }
-                if (block.getFace(BlockFace.EAST).getType()==mat)
-                {
-                    block.getFace(BlockFace.EAST).setType(Material.AIR);
-                    block.getWorld().dropItemNaturally(block.getFace(BlockFace.EAST).getLocation(), block.getState().getData().toItemStack());
-                }
-                if (block.getFace(BlockFace.SOUTH).getType()==mat)
-                {
-                    block.getFace(BlockFace.SOUTH).setType(Material.AIR);
-                    block.getWorld().dropItemNaturally(block.getFace(BlockFace.SOUTH).getLocation(), block.getState().getData().toItemStack());
-                }
-                if (block.getFace(BlockFace.WEST).getType()==mat)
-                {
-                    block.getFace(BlockFace.WEST).setType(Material.AIR);
-                    block.getWorld().dropItemNaturally(block.getFace(BlockFace.WEST).getLocation(), block.getState().getData().toItemStack());
+                    for(int j=-1;j<2;j++)
+                    {
+                        for(int k=-1;k<2;k++)
+                        {
+                            if(Math.abs(i)+Math.abs(j)+Math.abs(k)>0)
+                            {
+                                Block block2 = block.getRelative(i, j, k);
+                                ItemStack stack = plugin.getDrop(block2, event.getPlayer().getItemInHand());
+                                if(stack.getType()==block.getType()||block2.getType()==block.getType())
+                                {
+                                    block2.setType(Material.AIR);
+                                    block2.getWorld().dropItemNaturally(block2.getLocation(), stack);
+                                }
+                            }
+                        }
+                    }
                 }
                 if (powered.get(id)==0)
                 {
