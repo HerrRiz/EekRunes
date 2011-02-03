@@ -429,7 +429,7 @@ public class EekRunes extends JavaPlugin {
             ret.setAmount(amount);
             if (data>0)
             {
-                ret.setDamage((byte)data);
+                ret.setDurability((short)data);
             }
             return ret;
     	}
