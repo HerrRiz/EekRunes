@@ -22,57 +22,59 @@ public class MagicDatReader
     ArrayList<Integer[]> waypoints = new ArrayList<Integer[]>();
     private final int WPL = 0;
     private final int TPL = 1;
-    private HashMap<Location,String> waypoint_Locations;
-    private HashMap<Location,String> teleport_Locations;
+    private HashMap<Location,String> waypoint_Locations = new HashMap<Location,String>();
+    private HashMap<Location,String> teleport_Locations = new HashMap<Location,String>();
     private EekRunes plugin;
     public void convert(EekRunes plugin)
     {
         this.plugin=plugin;
+        ArrayList<ArrayList<Integer[]>> data = new ArrayList<ArrayList<Integer[]>>();
+        InputStreamReader isr;
         try
         {
-            ArrayList<ArrayList<Integer[]>> data = new ArrayList<ArrayList<Integer[]>>();
             FileInputStream fin = new FileInputStream(plugin.getDataFolder().getAbsolutePath()+File.separator+"magic.dat");
-            InputStreamReader isr = new InputStreamReader(fin);
-            int first = readint(isr);
-
-            // einlesen der ersten Zahl: -2
-
-            if (first != -2)
-            {
-                throw new RuntimeException("Die Datei ist keine magic.dat!");
-
-            }
-            int count_md = readint(isr);
-
-            for (int i_md = 0; i_md < count_md; i_md++)
-            {
-                data.add(new ArrayList<Integer[]>());
-
-                // die anzahl an Elementen, in der Liste
-                int count = readint(isr);
-
-                for (int i = 0; i < count; i++)
-                {
-                    int count_entry = readint(isr);
-                    data.get(i_md).add(new Integer[count_entry]);
-
-
-                    for (int iE = 0; iE < count_entry; iE++)
-                    {
-                        data.get(i_md).get(i)[iE] = readint(isr);
-                    }
-
-                }
-            }
-            isr.close();
-            generateData(data);
-            saveWarpState();
-            saveTeleState();
+            isr = new InputStreamReader(fin);
         }
         catch(Exception e)
         {
-            System.out.println("No magic.dat file to load.");
+            System.out.println("No magic.dat file to load!");
+            return;
         }
+        int first = readint(isr);
+        // einlesen der ersten Zahl: -2
+
+        if (first != -2)
+        {
+            System.out.println("magic.dat is not in the correct format, it may be corrupt!");
+            return;
+        }
+        int count_md = readint(isr);
+
+        for (int i_md = 0; i_md < count_md; i_md++)
+        {
+            data.add(new ArrayList<Integer[]>());
+
+            // die anzahl an Elementen, in der Liste
+            int count = readint(isr);
+
+            for (int i = 0; i < count; i++)
+            {
+                int count_entry = readint(isr);
+                data.get(i_md).add(new Integer[count_entry]);
+
+
+                for (int iE = 0; iE < count_entry; iE++)
+                {
+                    data.get(i_md).get(i)[iE] = readint(isr);
+                }
+
+            }
+        }
+        try{isr.close();}catch(Exception e){}
+        generateData(data);
+        saveWarpState();
+        saveTeleState();
+        System.out.println("Magic.dat conversion complete.");
     }
     private int readint(InputStreamReader stream)
     {

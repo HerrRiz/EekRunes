@@ -68,7 +68,8 @@ public class PowerToolRune extends Rune
                             {
                                 Block block2 = block.getRelative(i, j, k);
                                 ItemStack stack = plugin.getDrop(block2, event.getPlayer().getItemInHand());
-                                if(stack.getType()==block.getType()||block2.getType()==block.getType())
+                                ItemStack stackCmp = plugin.getDrop(block, event.getPlayer().getItemInHand());
+                                if((stack!=null&&stackCmp!=null&&stack.getType()==stackCmp.getType())||block2.getType()==block.getType())
                                 {
                                     block2.setType(Material.AIR);
                                     block2.getWorld().dropItemNaturally(block2.getLocation(), stack);

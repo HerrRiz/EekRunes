@@ -216,6 +216,9 @@ public class EekRunes extends JavaPlugin {
             options.put("teleports", Boolean.TRUE);
             options.put("compass", Boolean.TRUE);
             options.put("oracle", Boolean.TRUE);
+            options.put("powertool", Boolean.TRUE);
+            options.put("freezer", Boolean.TRUE);
+            options.put("chrono", Boolean.TRUE);
             saveState();
         }
     }

@@ -1,1 +1,3 @@
-Chrono Trigger - removed debug, updated
+removed more debug strings (they get everywhere!)
+fixed magic.dat conversion, made its error/output a bit more user friendly
+released power tool(thanks Herr Riz!)
