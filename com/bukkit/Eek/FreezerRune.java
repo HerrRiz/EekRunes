@@ -7,18 +7,7 @@ package com.bukkit.Eek;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
-import org.bukkit.block.BlockDamageLevel;
-import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockRightClickEvent;
-import org.bukkit.Location;
-import java.util.HashMap;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
 /**
  *
  * @author UserXP
